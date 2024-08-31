@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
+             xmlns:viewmodel="clr-namespace:Happy_English.ViewModels"
+             xmlns:converter="clr-namespace:Happy_English.Helpers"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#eef0f2"
+             x:DataType="viewmodel:TranslatePageViewModel"
+             x:Class="Happy_English.Pages.Translate">
+    <Page.Behaviors>
+        <mct:StatusBarBehavior StatusBarColor="White" StatusBarStyle="DarkContent"/>
+    </Page.Behaviors>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:TextToGridLengthConverter x:Key="TextToGridLengthConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid RowDefinitions="Auto, *, Auto">
+        <Grid Grid.Row="0" BackgroundColor="White">
+            <Frame Grid.Row="0" HorizontalOptions="StartAndExpand" BorderColor="Transparent" Margin="0,10" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding BackCommand}"/>
+                </Frame.GestureRecognizers>
+                <Image Source="back" HeightRequest="20" VerticalOptions="CenterAndExpand"/>
+            </Frame>
+            <HorizontalStackLayout Grid.Row="0" Margin="0,10" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                <Label Text="Happy" FontSize="20" FontAttributes="Bold"/>
+                <Label Text="Translate" FontSize="20" Margin="5,0,0,0"/>
+            </HorizontalStackLayout>
+
+            <Frame Grid.Row="0" HorizontalOptions="EndAndExpand" BorderColor="Transparent" Margin="0,10" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SavedCommand}"/>
+                </Frame.GestureRecognizers>
+                <Image Source="saved" HeightRequest="20" WidthRequest="20">
+                    <Image.Behaviors>
+                        <mct:IconTintColorBehavior TintColor="Black"/>
+                    </Image.Behaviors>
+                </Image>
+            </Frame>
+        </Grid>
+
+        <Border Grid.Row="1" StrokeShape="RoundRectangle 0,0,30,30" Margin="0" Padding="20,0,0,30" StrokeThickness="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Background="White">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="{Binding Text, Converter={StaticResource TextToGridLengthConverter}}"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Editor Grid.Row="0" Margin="0,0,0, 20" x:Name="myEditor" Text="{Binding Text}" PropertyChanged="myEditor_PropertyChanged" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" IsTextPredictionEnabled="True" IsSpellCheckEnabled="True" MaxLength="100" Placeholder="Enter text" FontSize="25" Keyboard="Chat"/>
+                <Frame Grid.Row="1" IsVisible="{Binding IsSpeakerVisible}" HeightRequest="35" WidthRequest="35" CornerRadius="20" HorizontalOptions="StartAndExpand"
+                            VerticalOptions="EndAndExpand" BorderColor="Transparent">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                    </Frame.GestureRecognizers>
+                    <Image Source="loud_speaker" HeightRequest="20" WidthRequest="20"/>
+                </Frame>
+
+                <Frame Grid.Row="1" IsVisible="{Binding IsSpeakerVisible}" HeightRequest="35" WidthRequest="35" CornerRadius="20" HorizontalOptions="EndAndExpand"
+                            VerticalOptions="EndAndExpand" BorderColor="Transparent" Margin="0,0,20,0">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                    </Frame.GestureRecognizers>
+                    <Image Source="copy" HeightRequest="20" WidthRequest="20"/>
+                </Frame>
+
+                <Grid Grid.Row="2" HorizontalOptions="EndAndExpand">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="90"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" IsVisible="{Binding IsSeperatorVisible}" HeightRequest="3" Opacity="0.5" StrokeThickness="0" StrokeShape="RoundRectangle 20" BackgroundColor="Gray" VerticalOptions="CenterAndExpand" WidthRequest="200"/>
+                    <Frame Grid.Column="1" IsVisible="{Binding IsComplatedVisible}" HeightRequest="35" WidthRequest="35" CornerRadius="20" HorizontalOptions="EndAndExpand" Margin="0,0,40,0"
+                            VerticalOptions="CenterAndExpand" BackgroundColor="#caf0f8" BorderColor="Transparent">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                        </Frame.GestureRecognizers>
+                        <Image Source="next" HeightRequest="15" WidthRequest="15"/>
+                    </Frame>
+                </Grid>
+                    
+                <Label Grid.Row="3" Margin="0,20,0,0" Text="{Binding Text}" IsVisible="{Binding IsSeperatorVisible}" HorizontalOptions="FillAndExpand" FontSize="25"/>
+                <Frame Grid.Row="4" IsVisible="{Binding IsSpeakerVisible}" HeightRequest="35" WidthRequest="35" CornerRadius="20" HorizontalOptions="StartAndExpand"
+                            VerticalOptions="EndAndExpand" BorderColor="Transparent" Margin="0,20,0,0">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                    </Frame.GestureRecognizers>
+                    <Image Source="loud_speaker" HeightRequest="20" WidthRequest="20"/>
+                </Frame>
+                <Frame Grid.Row="4" IsVisible="{Binding IsSpeakerVisible}" HeightRequest="35" WidthRequest="35" CornerRadius="20" 
+                       HorizontalOptions="EndAndExpand" Margin="0,0,20,0"
+                            VerticalOptions="EndAndExpand" BorderColor="Transparent">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                    </Frame.GestureRecognizers>
+                    <Image Source="copy" HeightRequest="20" WidthRequest="20"/>
+                </Frame>
+            </Grid>
+        </Border>
+        
+        <!--<Border Grid.Row="2" MinimumHeightRequest="10" StrokeShape="RoundRectangle 0,0,30,30" Margin="0" Padding="25,15,0,25" StrokeThickness="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Background="White">
+        </Border>-->
+
+        <Grid Grid.Row="3" HorizontalOptions="FillAndExpand" Padding="10" VerticalOptions="FillAndExpand">
+            <VerticalStackLayout>
+                <HorizontalStackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="10,0">
+                    <Frame HeightRequest="60" WidthRequest="140" BorderColor="Transparent" BackgroundColor="White" HorizontalOptions="Start" VerticalOptions="StartAndExpand" Padding="5" HasShadow="True">
+                        <Label Text="English" FontSize="18" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalOptions="Center"/>
+                    </Frame>
+                    <Image Source="tr_arrow" HeightRequest="20" WidthRequest="20" Margin="20,0"/>
+                    <Frame HeightRequest="60" WidthRequest="140" BorderColor="Transparent" BackgroundColor="White" HorizontalOptions="Start" VerticalOptions="StartAndExpand" Padding="5" HasShadow="True">
+                        <Label Text="Uzbek" FontSize="18" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalOptions="Center"/>
+                    </Frame>
+                </HorizontalStackLayout>
+
+                <Frame BorderColor="Transparent" BackgroundColor="#78B7BB" Margin="0,20,0,10" CornerRadius="40" HeightRequest="80" WidthRequest="80" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                    <Image Source="micro" HeightRequest="25" WidthRequest="25">
+                        <Image.Behaviors>
+                            <mct:IconTintColorBehavior TintColor="#ffffff"/>
+                        </Image.Behaviors>
+                    </Image>
+                </Frame>
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

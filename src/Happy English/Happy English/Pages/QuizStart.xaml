@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:Happy_English.ViewModels"
+             xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
+             xmlns:skias="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+             x:DataType="viewmodel:QuizStartPageViewModel"
+             x:Class="Happy_English.Pages.QuizStart">
+    <Grid RowDefinitions="Auto, *" RowSpacing="40">
+        <Frame Grid.Row="0" BackgroundColor="Transparent" BorderColor="Transparent" HasShadow="True">
+            <Frame.Shadow>
+                <Shadow Brush="Gray"
+                        Offset="5,5"
+                        Opacity="0.5"
+                        Radius="200"/>
+            </Frame.Shadow>
+            <!--<Image Source="aibrain.png" HeightRequest="180" VerticalOptions="StartAndExpand"/>-->
+            <skias:SKLottieView Grid.Row="1" RepeatCount="-1" VerticalOptions="FillAndExpand" HeightRequest="200" WidthRequest="200" HorizontalOptions="FillAndExpand" Source="brain.json"/>
+        </Frame>
+
+        <Grid Grid.Row="1" RowDefinitions="Auto, Auto, *" Padding="20,0" ColumnSpacing="10" RowSpacing="10">
+            <Frame Grid.Row="0" Grid.ColumnSpan="2" Padding="20,0" MinimumHeightRequest="100" HasShadow="True">
+                <Label Text="{Binding Question}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontAttributes="Bold" FontSize="18"/>
+            </Frame>
+
+            <CollectionView x:Name="collectionView" Grid.Row="1" ItemsLayout="VerticalGrid, 2" ItemsSource="{Binding Variants}" SelectionMode="Single" SelectedItem="{Binding SelectedItem}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <Frame Margin="5" BackgroundColor="White" HasShadow="True" x:Name="variantFrame">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:QuizStartPageViewModel}}, Path=SelectedVariandCommand}"
+                                                      CommandParameter="{Binding .}"/>
+                            </Frame.GestureRecognizers>
+                            <Label Text="{Binding .}" x:Name="variantLabel" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Normal">
+                                        <VisualState.Setters>
+                                            <Setter TargetName="variantFrame" Property="BackgroundColor" Value="White"/>
+                                            <Setter TargetName="variantLabel" Property="Label.TextColor" Value="Black"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter TargetName="variantFrame" Property="BackgroundColor" Value="#78B7BB"/>
+                                            <Setter TargetName="variantLabel" Property="Label.TextColor" Value="White"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Frame Grid.Row="3" IsVisible="{Binding IsNextButtonVisible}" BorderColor="Transparent" VerticalOptions="EndAndExpand" Margin="0,0,0,20" Padding="10" BackgroundColor="#78B7BB">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NextQuestionCommand}"/>
+                </Frame.GestureRecognizers>
+
+                <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Padding="5" Spacing="10">
+                    <Label Grid.Column="0" Text="Next" TextColor="White" FontSize="20" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                    <Image Grid.Column="0" Source="next" HeightRequest="20" HorizontalOptions="Center">
+                        <Image.Behaviors>
+                            <mct:IconTintColorBehavior TintColor="White"/>
+                        </Image.Behaviors>
+                    </Image>
+                </HorizontalStackLayout>
+            </Frame>
+        </Grid>
+    </Grid>
+</ContentPage>

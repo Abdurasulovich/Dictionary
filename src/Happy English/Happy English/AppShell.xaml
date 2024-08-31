@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Happy_English.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Happy_English.Pages"
+    Shell.FlyoutBehavior="Disabled"
+    xmlns:viewmodel="clr-namespace:Happy_English.ViewModels"
+    x:DataType="viewmodel:AppShellViewModel"
+    Title="Happy_English"
+    Shell.TabBarUnselectedColor="#808B97"
+    Shell.TabBarTitleColor="#78B7BB"
+    Shell.TabBarForegroundColor="#78B7BB">
+    <TabBar>
+        <Tab Title="Dashboard"
+             Icon="{Binding DashboardIcon}">
+            <ShellContent Title="Dashboard"
+                          ContentTemplate="{DataTemplate local:Dashboard}"/>
+        </Tab>
+
+        <Tab Title="Search"
+             Icon="{Binding SearchIcon}">
+            <ShellContent Title="Search"
+                          ContentTemplate="{DataTemplate local:Search}"/>
+        </Tab>
+        
+        <Tab Title="Setting"
+             Icon="{Binding SettingsIcon}">
+            <ShellContent Title="Settings"
+                          ContentTemplate="{DataTemplate local:Settings}"/>
+        </Tab>
+    </TabBar>
+
+</Shell>

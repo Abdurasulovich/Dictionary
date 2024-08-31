@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:Happy_English.ViewModels"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Maui.Controls;assembly=SkiaSharp.Views.Maui.Controls"
+             xmlns:skias="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+             x:Class="Happy_English.Pages.QuizResult"
+             x:DataType="viewmodel:QuizResultPageViewModel"
+             Background="#FBFBFB"
+             Shell.BackgroundColor="#FBFBFB"
+             Title="QuizResult">
+             <!--xmlns:skias="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"-->
+    <Grid RowDefinitions="Auto, Auto, Auto, *">
+        <Label Grid.Row="0" Text="Your result" TextColor="#808B97" FontAttributes="Bold" FontSize="40" VerticalOptions="End" HorizontalOptions="CenterAndExpand"/>
+        <ContentView x:Name="imageContainer" Grid.Row="1" HorizontalOptions="Center" Margin="0,30" VerticalOptions="Center">
+            <Grid>
+                <Image Source="award.png" Aspect="Fill" HeightRequest="140" WidthRequest="140"/>
+                <skias:SKLottieView IsVisible="{Binding IsConfettiVisible}" x:Name="Confitte" Grid.Row="1" HeightRequest="200" WidthRequest="200" HorizontalOptions="FillAndExpand" Source="confites.json"/>
+            </Grid>
+        </ContentView>
+        <!--<Image x:Name="imageContainer" Grid.Row="0" Source="trophy.png" Aspect="Fill" HeightRequest="140" WidthRequest="140"/>-->
+        <Frame Grid.Row="2" VerticalOptions="StartAndExpand" HorizontalOptions="Center" Padding="0" BackgroundColor="Transparent" BorderColor="Transparent">
+            <Grid>
+                <skia:SKCanvasView Grid.Row="1" HeightRequest="150" WidthRequest="150" x:Name="canvasView" 
+                           PaintSurface="OnCanvasViewPaintSurface" VerticalOptions="StartAndExpand"/>
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label Grid.Row="1" Text="{Binding ResultValue}" TextColor="#78B7BB" FontAttributes="Bold" FontSize="22" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                    <Label Text="%" FontSize="18" TextColor="#78B7BB" VerticalOptions="Center" HorizontalOptions="Center"/>
+                </HorizontalStackLayout>
+
+                
+            </Grid>
+        </Frame>
+
+        <Grid Grid.Row="3" RowDefinitions="Auto, Auto" Margin="0,50,0,0">
+        <Frame Grid.Row="0" BorderColor="Transparent" VerticalOptions="Center" HorizontalOptions="Center" Padding="50,20" BackgroundColor="#78B7BB">
+            <Label Text="Restart" FontSize="20" FontAttributes="Bold" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+        </Frame>
+        <Frame Grid.Row="1" BorderColor="Transparent" Margin="0,10,0,50" VerticalOptions="Center" Padding="35,20" HorizontalOptions="Center" BackgroundColor="#808B97">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding MainPageCommand}"/>
+                </Frame.GestureRecognizers>
+            <Label Text="Main page" FontSize="20" FontAttributes="Bold" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+        </Frame>
+            
+        </Grid>
+
+    </Grid>
+</ContentPage>

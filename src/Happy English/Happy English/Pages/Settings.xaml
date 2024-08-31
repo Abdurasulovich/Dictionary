@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:Happy_English.ViewModels"
+             x:Class="Happy_English.Pages.Settings"
+             x:DataType="viewmodel:SettingsPageViewModel"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#eff1ed">
+    <Grid RowDefinitions="40,*" Margin="10">
+        <Label Grid.Row="0" Margin="10,0,0,0" Text="Settings" VerticalTextAlignment="Center" HorizontalTextAlignment="Start" FontAttributes="Bold" FontSize="25"/>
+        <Grid Grid.Row="1" Margin="10" Padding="0" HorizontalOptions="FillAndExpand" HeightRequest="50" VerticalOptions="Start">
+            <Label Grid.Column="0" Text="Select mode" FontSize="18" VerticalTextAlignment="Center"/>
+            <Grid ColumnDefinitions="*, Auto">
+                <Grid.Shadow>
+                    <Shadow Brush="Black"
+                            Offset="0,0"
+                            Opacity="0.5"
+                            Radius="50"/>
+                </Grid.Shadow>
+                <Border Grid.Column="1" StrokeShape="RoundRectangle 10" StrokeThickness="0" Background="White" HeightRequest="40" WidthRequest="150">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ModeSelectorCommand}"/>
+                    </Border.GestureRecognizers>
+                    <Label Text="{Binding AppMode}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                </Border>
+                <Border Grid.Column="1" Margin="0,140,0,0" Background="Transparent" StrokeThickness="0" StrokeShape="RoundRectangle 10" HeightRequest="100" IsVisible="{Binding IsModeSelectorVisible}">
+                    <Grid RowDefinitions="30, 30, 30">
+                        <Frame Grid.Row="0" BorderColor="Transparent" BackgroundColor="White" Padding="0">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding LightCommand}"/>
+                            </Frame.GestureRecognizers>
+                            <Grid ColumnDefinitions="*, Auto">
+                                <Label Grid.Column="0" Text="{Binding LigthMode}" VerticalTextAlignment="Center" HorizontalTextAlignment="Start" Margin="10,0"/>
+                                <Image Grid.Column="1" Source="sun" HeightRequest="16" Margin="10"/>
+                            </Grid>
+                        </Frame>
+                        <Frame Grid.Row="1" BorderColor="Transparent" BackgroundColor="White" Padding="0">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding DarkCommand}"/>
+                            </Frame.GestureRecognizers>
+                            <Grid ColumnDefinitions="*, Auto">
+                                <Label Grid.Column="0" Text="{Binding DarkMode}" VerticalTextAlignment="Center" HorizontalTextAlignment="Start" Margin="10,0"/>
+                                <Image Grid.Column="1" Source="moon" HeightRequest="16" Margin="10"/>
+                            </Grid>
+                        </Frame>
+                        <Frame Grid.Row="2" BorderColor="Transparent" BackgroundColor="White" Padding="0">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SystemCommand}"/>
+                            </Frame.GestureRecognizers>
+                            <Grid ColumnDefinitions="*, Auto">
+                                <Label Grid.Column="0" Text="{Binding SystemMode}" VerticalTextAlignment="Center" HorizontalTextAlignment="Start" Margin="10,0"/>
+                                <Image Grid.Column="1" Source="settings" HeightRequest="16" Margin="10"/>
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid> 
+
+</ContentPage>
