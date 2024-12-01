@@ -9,6 +9,7 @@ public partial class SettingsPageViewModel : ObservableObject
     public SettingsPageViewModel()
     {
         AppMode = "Light";
+        isModeSelectorVisible = false;
     }
     [ObservableProperty]
     string appMode;
@@ -19,7 +20,7 @@ public partial class SettingsPageViewModel : ObservableObject
     [ObservableProperty]
     string systemMode = "Default";
     [ObservableProperty]
-    bool isModeSelectorVisible = false;
+    bool isModeSelectorVisible;
 
     [RelayCommand]
     void ModeSelector()
